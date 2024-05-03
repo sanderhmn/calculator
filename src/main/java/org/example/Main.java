@@ -1,17 +1,30 @@
 package org.example;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import java.util.Scanner;
+
+import static java.lang.System.exit;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        // Welcome
+        System.out.println("Welcome to the CLIculator, how can I help you today? \n");
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        // Initialize
+        Calculator calc = new Calculator();
+        Scanner myScanner = new Scanner(System.in);
+
+        // User input
+        System.out.println("Enter two integers to add together:");
+
+        // Check validity
+        try {
+            int a = myScanner.nextInt();
+            int b = myScanner.nextInt();
+            System.out.println("The sum of the numbers " + a + " + " + b + " = " + calc.add(a,b));
+        } catch (Exception e) {
+            System.out.println("Error on input:");
+            System.out.println(e);
+            exit(1);
         }
     }
 }

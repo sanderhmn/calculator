@@ -1,8 +1,19 @@
 package org.example;
 
 public class Calculator {
-    private int a;
-    private int b;
+    Input input;
+    Interpreter interpreter;
+
+    public Calculator(Input input, Interpreter interpreter) {
+        this.input = input;
+        this.interpreter = interpreter;
+    }
+
+    public void performCalculation() {
+        String prompt = input.getInput();
+        int result = interpreter.interpret(prompt);
+        System.out.print("The result of " + prompt + " = " + result);
+    }
 
     public int add(int a, int b) {
         return (a + b);

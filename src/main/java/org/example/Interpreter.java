@@ -18,7 +18,7 @@ public class Interpreter {
             if (Pattern.matches("^[0-9-]+$", a)) {
                 sum += Integer.valueOf(a.trim());
             } else {
-                throw new RuntimeException("Invalid Input: alphabetic values");
+                throw new RuntimeException("Invalid Input: non-numeric values");
             }
 
         }

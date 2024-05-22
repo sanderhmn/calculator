@@ -18,6 +18,7 @@ public class InterpreterTest {
         testCases.put("-1+1", 0);
         testCases.put("5+10", 15);
         testCases.put("-3 +9", 6);
+        testCases.put("5+-9", -4);
 
         for (Map.Entry<String, Object> testCase : testCases.entrySet()) {
             assertEquals(testCase.getValue(), interpreter.interpret(testCase.getKey()));

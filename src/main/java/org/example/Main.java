@@ -17,8 +17,9 @@ public class Main {
 
         // Create calculator and do calculation
         Calculator calculator = new Calculator(input, interpreter);
-        calculator.performCalculation();
 
-        exit(0);
+        while (true) {
+            calculator.performCalculation();
+        }
     }
 }

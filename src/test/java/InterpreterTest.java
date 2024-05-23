@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 
 public class InterpreterTest {
     @Test
-    public void testAddition() {
+    public void additionShouldSucceed() {
         Interpreter interpreter = new Interpreter();
         HashMap<String, Object> testCases = new HashMap<>();
 
@@ -23,14 +23,18 @@ public class InterpreterTest {
         for (Map.Entry<String, Object> testCase : testCases.entrySet()) {
             assertEquals(testCase.getValue(), interpreter.interpret(testCase.getKey()));
         }
+    }
+
+    @Test
+    public void additionExpectException() {
+        Interpreter interpreter = new Interpreter();
 
         // Try alphabetic value, expect exception
         try {
             interpreter.interpret("a+1");
-            fail("Invalid input exception should be thrown");
+            fail("Invalid input: exception should be thrown");
         } catch (Exception e) {
-            assertTrue(e.getMessage().contains("Invalid Input: alphabetic values"));
+            assertTrue(e.getMessage().contains("Invalid Input: non-numeric values"));
         }
-
     }
 }

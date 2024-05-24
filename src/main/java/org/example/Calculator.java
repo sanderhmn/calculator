@@ -11,11 +11,22 @@ public class Calculator {
         this.interpreter = interpreter;
     }
 
-    public void performCalculation() {
+    public void performCalculationv2() {
         String prompt = input.getInput();
         try {
-            int result = interpreter.interpret(prompt);
+            int result = interpreter.interpretv3(prompt);
             System.out.println("The result of " + prompt + " = " + result);
+        } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+            exit(1);
+        }
+    }
+
+    public void performv3() {
+        String prompt = input.getInput();
+        try {
+            int result = interpreter.interpretv3(prompt);
+            System.out.println("The result:" + result);
         } catch (RuntimeException e) {
             System.out.println(e.getMessage());
             exit(1);

@@ -21,7 +21,7 @@ public class InterpreterTest {
         testCases.put("5+-9", -4);
 
         for (Map.Entry<String, Object> testCase : testCases.entrySet()) {
-            assertEquals(testCase.getValue(), interpreter.interpret(testCase.getKey()));
+            assertEquals(testCase.getValue(), interpreter.interpretv2(testCase.getKey()));
         }
     }
 
@@ -31,7 +31,7 @@ public class InterpreterTest {
 
         // Try alphabetic value, expect exception
         try {
-            interpreter.interpret("a+1");
+            interpreter.interpretv2("a+1");
             fail("Invalid input: exception should be thrown");
         } catch (Exception e) {
             assertTrue(e.getMessage().contains("Invalid Input: non-numeric values"));

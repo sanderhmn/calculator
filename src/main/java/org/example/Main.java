@@ -1,6 +1,5 @@
 package org.example;
 
-import java.io.*;
 import java.util.Scanner;
 
 import static java.lang.System.exit;
@@ -8,7 +7,7 @@ import static java.lang.System.exit;
 public class Main {
     public static void main(String[] args) {
         // Welcome
-        System.out.println("Welcome to the CLIculator, how can I help you today? \n");
+        System.out.println("Welcome to the CLIculator, how can I help you today?" + "\n");
 
         // Initialize objects
         Scanner scanner = new Scanner(System.in);
@@ -17,9 +16,14 @@ public class Main {
 
         // Create calculator and do calculation
         Calculator calculator = new Calculator(input, interpreter);
+        double startTime = System.currentTimeMillis();
 
-        while (true) {
-            calculator.performCalculation();
+        // Run for 10 mins until shutting down
+        while (System.currentTimeMillis() - startTime < 600000) {
+            calculator.performCalculationv2();
         }
+
+        scanner.close();
+        exit(0);
     }
 }

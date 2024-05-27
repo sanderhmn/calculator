@@ -5,15 +5,17 @@ import java.util.function.BiFunction;
 import java.util.regex.Pattern;
 
 public class Interpreter {
-    public int interpretv3(String prompt) {
+    public int interpret(String prompt) {
         ArrayList<String> splittedPrompt = new ArrayList<>(List.of(prompt.split("\\s+")));
 
+        // Create HashMap of operators and corresponding operation
         HashMap<String, BiFunction<Integer, Integer, Integer>> operations = new HashMap<>();
         //operations.put("*", (x, y) -> x * y);
         //operations.put("/", (x, y) -> x / y);
         operations.put("+", (x, y) -> x + y);
         operations.put("-", (x, y) -> x - y);
 
+        // Loop over operations in order of (PE)MDAS, perform them and simplify prompt for every operator
         for (String op : operations.keySet()) {
             for (int j = 0; j < splittedPrompt.size(); j++) {
                 if (Objects.equals(splittedPrompt.get(j), op)) {
@@ -35,35 +37,11 @@ public class Interpreter {
 
                     // Done when single number left
                     if (splittedPrompt.size() == 1) {
-                        System.out.println(splittedPrompt);
                         break;
                     }
                 }
             }
         }
         return Integer.parseInt(splittedPrompt.get(0));
-    }
-    public int interpretv2(String prompt) {
-        String[] parsed = prompt.split("\\+");
-        parsed = Arrays.stream(parsed)
-                .map(String::trim)
-                .toArray(String[]::new);
-
-        int sum = 0;
-        for (String a : parsed) {
-            if (Pattern.matches("^[0-9-]+$", a)) {
-                sum += Integer.valueOf(a.trim());
-            } else {
-                throw new RuntimeException("Invalid Input: non-numeric values");
-            }
-
-        }
-
-        return sum;
-//        for (int i = 0; i < input.length(); i++) {
-//            System.out.println(input.charAt(i));
-//
-//            //Character.isDigit()
-//        }
     }
 }

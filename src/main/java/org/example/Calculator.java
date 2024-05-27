@@ -11,24 +11,14 @@ public class Calculator {
         this.interpreter = interpreter;
     }
 
-    public void performCalculationv2() {
+    public void performCalculation() {
         String prompt = input.getInput();
         try {
-            int result = interpreter.interpretv3(prompt);
-            System.out.println("The result of " + prompt + " = " + result);
-        } catch (RuntimeException e) {
-            System.out.println(e.getMessage());
-            exit(1);
-        }
-    }
-
-    public void performv3() {
-        String prompt = input.getInput();
-        try {
-            int result = interpreter.interpretv3(prompt);
+            int result = interpreter.interpret(prompt);
             System.out.println("The result:" + result);
         } catch (RuntimeException e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
+            e.printStackTrace();
             exit(1);
         }
     }

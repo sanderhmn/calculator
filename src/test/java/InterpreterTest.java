@@ -10,18 +10,16 @@ public class InterpreterTest {
     @Test
     public void additionShouldSucceed() {
         Interpreter interpreter = new Interpreter();
-        HashMap<String, Object> testCases = new HashMap<>();
 
-        // Try different testcases with increasing complexity
-        testCases.put("1+1", 2);
-        testCases.put("1 + 1    ", 2);
-        testCases.put("-1+1", 0);
-        testCases.put("5+10", 15);
-        testCases.put("-3 +9", 6);
-        testCases.put("5+-9", -4);
+        Map<String, Object> testCases = Map.of(
+                "1 + 1", 2,
+                "-1 + 1",0,
+                "-3 + 9", 6,
+                "5 + -9", -4,
+                "5 - 3", 2);
 
         for (Map.Entry<String, Object> testCase : testCases.entrySet()) {
-            assertEquals(testCase.getValue(), interpreter.interpretv2(testCase.getKey()));
+            assertEquals(testCase.getValue(), interpreter.interpret(testCase.getKey()));
         }
     }
 
@@ -31,7 +29,7 @@ public class InterpreterTest {
 
         // Try alphabetic value, expect exception
         try {
-            interpreter.interpretv2("a+1");
+            interpreter.interpret("a+1");
             fail("Invalid input: exception should be thrown");
         } catch (Exception e) {
             assertTrue(e.getMessage().contains("Invalid Input: non-numeric values"));

@@ -7,7 +7,9 @@ import static java.lang.System.exit;
 public class Main {
     public static void main(String[] args) {
         // Welcome
-        System.out.println("Welcome to the CLIculator, how can I help you today?" + "\n");
+        System.out.println("\n" + "Welcome to the CLIculator, how can I help you today?" + "\n");
+        System.out.println("For the current version I require spaces between the numbers and operators");
+        System.out.println("So please use the following notation: 3 + 5 - 3 * 2");
 
         // Initialize objects
         Scanner scanner = new Scanner(System.in);
@@ -18,9 +20,9 @@ public class Main {
         Calculator calculator = new Calculator(input, interpreter);
         double startTime = System.currentTimeMillis();
 
-        // Run for 10 mins until shutting down
+        // Shutdown after 10 mins
         while (System.currentTimeMillis() - startTime < 600000) {
-            calculator.performCalculationv2();
+            calculator.performCalculation();
         }
 
         scanner.close();

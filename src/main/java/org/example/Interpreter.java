@@ -11,7 +11,7 @@ public class Interpreter {
 
         boolean expectNumber = true; // start with number expected
         String numberRegex = "-?\\d+";
-        String operatorRegex = "[+-]";
+        String operatorRegex = "[+\\-*/]";
 
         String expectedRegex;
 
@@ -34,7 +34,7 @@ public class Interpreter {
     }
     
     public int interpret(String prompt) {
-        ArrayList<String> splitPrompt = null; //FIXME why should this be initialized and not declared?
+        ArrayList<String> splitPrompt = new ArrayList<>();
         try {
             splitPrompt = this.tokenizePromptToArray(prompt);
         } catch (Exception e) {
@@ -44,8 +44,8 @@ public class Interpreter {
 
         // Create HashMap of operators and corresponding operation
         HashMap<String, BiFunction<Integer, Integer, Integer>> operations = new HashMap<>();
-        //operations.put("*", (x, y) -> x * y);
-        //operations.put("/", (x, y) -> x / y);
+        operations.put("*", (x, y) -> x * y);
+        operations.put("/", (x, y) -> x / y);
         operations.put("+", (x, y) -> x + y);
         operations.put("-", (x, y) -> x - y);
 
@@ -76,6 +76,6 @@ public class Interpreter {
                 }
             }
         }
-        return Integer.parseInt(splitPrompt.get(0));
+        return Integer.parseInt(splitPrompt.getFirst());
     }
 }

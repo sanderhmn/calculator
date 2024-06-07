@@ -14,7 +14,7 @@ public class Calculator {
     public void performCalculation() {
         String prompt = input.getInput();
         try {
-            int result = interpreter.interpret(prompt);
+            double result = interpreter.buildTree(prompt);
             System.out.println("The result: " + result);
         } catch (RuntimeException e) {
             //System.out.println(e.getMessage());

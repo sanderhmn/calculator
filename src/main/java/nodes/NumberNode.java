@@ -21,4 +21,21 @@ public class NumberNode implements Node{
     public double getValue() {
         return this.value;
     }
+
+    @Override
+    public Node getRightChild() {
+        return null;
+    }
+
+    @Override
+    public int getPriority() {
+        return -1; // set as -1 such that prio of operation is always higher
+    }
+
+    @Override
+    public void setRightChild(Node rightChild) {
+        // such empty, SOLID must be mad with me
+    }
+
+
 }

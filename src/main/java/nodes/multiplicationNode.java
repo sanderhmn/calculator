@@ -1,8 +1,11 @@
 package nodes;
 
+import static org.example.Interpreter.MULTIPLICATIONPRIO;
+
 public class multiplicationNode implements operatorNode {
     final Node leftChild;
     Node rightChild;
+    int priority = MULTIPLICATIONPRIO;
 
     public multiplicationNode(Node leftChild, Node rightChild) {
         this.leftChild = leftChild;
@@ -17,14 +20,15 @@ public class multiplicationNode implements operatorNode {
         this(leftChild, new NumberNode(rightVal));
     }
 
+    public multiplicationNode(double leftVal, String rightVal) {
+        this(new NumberNode(leftVal), new NumberNode(rightVal));
+    }
+
+    // FIXME feels ugly to have 4 different constructors
+
     @Override
     public void setRightChild(Node rightChild) {
         this.rightChild = rightChild;
-    }
-
-    @Override
-    public Node getLeftChild() {
-        return leftChild;
     }
 
     @Override
@@ -33,7 +37,14 @@ public class multiplicationNode implements operatorNode {
     }
 
     @Override
+    public int getPriority() {
+        return priority;
+    }
+
+    @Override
     public double getValue() {
         return leftChild.getValue() * rightChild.getValue();
     }
+
+
 }

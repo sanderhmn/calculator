@@ -11,7 +11,6 @@ public class Input {
 
     public String getInput() {
         System.out.println("Please enter your calculation:");
-
         return scanner.nextLine();
     }
 }

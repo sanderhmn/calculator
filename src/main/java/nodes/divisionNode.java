@@ -1,5 +1,6 @@
 package nodes;
 
+import static java.lang.System.exit;
 import static org.example.Interpreter.DIVISIONPRIO;
 
 public class divisionNode implements operatorNode {
@@ -41,6 +42,14 @@ public class divisionNode implements operatorNode {
 
     @Override
     public double getValue() {
-        return leftChild.getValue() / rightChild.getValue();
+        if (rightChild.getValue() == 0) {
+            exit(4);
+        }
+        return (leftChild.getValue() / rightChild.getValue());
+    }
+
+    @Override
+    public String toString() {
+        return "[%s / %s]".formatted(leftChild, rightChild);
     }
 }

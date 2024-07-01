@@ -43,7 +43,12 @@ public class multiplicationNode implements operatorNode {
 
     @Override
     public double getValue() {
-        return leftChild.getValue() * rightChild.getValue();
+        return (leftChild.getValue() * rightChild.getValue());
+    }
+
+    @Override
+    public String toString() {
+        return "[%s * %s]".formatted(leftChild, rightChild);
     }
 
 

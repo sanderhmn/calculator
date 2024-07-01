@@ -67,7 +67,7 @@ public class Interpreter {
         //            /\
         //           3  1
 
-        // 2 * 2 - 3 - 3 - 1 * 1
+        // 2 * 2 - 3 - 3 - 1 * 1 - 1
 
         //        -
         //       / \
@@ -111,7 +111,7 @@ public class Interpreter {
 
             // if current operation priority < priority of operation of currentRootNode
             // replace rootNode with new operator node
-            if (operatorPrio < currentRootNode.getPriority()) {
+            if (operatorPrio <= currentRootNode.getPriority()) {
                 currentRootNode = switch (operator) {
                     case "*" -> new multiplicationNode(currentRootNode, new NumberNode(secondOperand));
                     case "/" -> new divisionNode(currentRootNode, new NumberNode(secondOperand));
@@ -122,6 +122,7 @@ public class Interpreter {
             }
 
             // elif current operation priority > priority of operation of currentRootNode
+            // append new suboperation as rightchild
             else {
                 Node tempNode = currentRootNode;
 
@@ -129,10 +130,10 @@ public class Interpreter {
                 // FIXME while !operatorPrio > tempNode.getRightChild().getPriority()
 
                 // FIXME better? (while operatrorPrio !> tempNOde.getPrio())
-                while (!((tempNode.getRightChild()) instanceof NumberNode rightLeaf)) { //gives error because tM=cRN=numberNode has no gRC()
+                while ((operatorPrio < tempNode.getRightChild().getPriority())) { //gives error because tM=cRN=numberNode has no gRC()
                     tempNode = tempNode.getRightChild();
                 }
-                double tempLeftVal = rightLeaf.getValue();
+                double tempLeftVal = tempNode.getRightChild().getValue();
 
                 // Build new node and replace old leaf with it
                 Node tempNewChild = switch (operator) {

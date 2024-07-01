@@ -37,5 +37,9 @@ public class NumberNode implements Node{
         // such empty, SOLID must be mad with me
     }
 
+    @Override
+    public String toString() {
+        return "%s".formatted(value);
+    }
 
 }

@@ -1,9 +1,6 @@
 import org.example.Interpreter;
 import org.junit.Test;
-import org.junit.function.ThrowingRunnable;
-import org.junit.rules.ExpectedException;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.Assert.*;

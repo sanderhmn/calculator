@@ -20,10 +20,8 @@ public class Calculator {
             double result = tree.getValue();
 
             System.out.println("The result: " + result);
-        } catch (RuntimeException e) {
-            //System.out.println(e.getMessage());
+        } catch (Exception e) {
             e.printStackTrace();
-            exit(1);
         }
     }
 }

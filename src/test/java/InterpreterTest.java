@@ -1,5 +1,7 @@
 import org.example.Interpreter;
 import org.junit.Test;
+import org.junit.function.ThrowingRunnable;
+import org.junit.rules.ExpectedException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,31 +10,37 @@ import static org.junit.Assert.*;
 
 public class InterpreterTest {
     @Test
-    public void additionShouldSucceed() {
+    public void additionShouldSucceed() throws Exception {
         Interpreter interpreter = new Interpreter();
 
-        Map<String, Object> testCases = Map.of(
-                "1 + 1", 2,
-                "-1 + 1",0,
-                "-3 + 9", 6,
-                "5 + -9", -4,
-                "5 - 3", 2);
+        Map<String, Object> testCases = Map.ofEntries(
+                Map.entry("1 + 1", 2.0),
+                Map.entry("1 - 1", 0.0),
+                Map.entry("1 + -1", 0.0),
+                Map.entry("5 + -9", -4.0),
+                Map.entry("2 * 4", 8.0),
+                Map.entry("6 / 3", 2.0),
+                Map.entry("3 - 3 * 2", -3.0),
+                Map.entry("3 * 3 - 3", 6.0),
+                Map.entry("9 - 5 - 3", 1.0),
+                Map.entry("2 + 6 * -1", -4.0),
+                Map.entry("9 / 2", 4.5)
+        );
 
         for (Map.Entry<String, Object> testCase : testCases.entrySet()) {
-            assertEquals(testCase.getValue(), interpreter.buildTree(testCase.getKey()));
+            assertEquals(testCase.getValue(), interpreter.buildTree(testCase.getKey()).getValue());
         }
+
     }
 
     @Test
     public void additionExpectException() {
         Interpreter interpreter = new Interpreter();
+        Exception thrownException = assertThrows(Exception.class, () -> interpreter.buildTree("a+1"));
+        assertEquals("Incorrect format: please enter whitespaces between numbers and operators", thrownException.getMessage());
 
-        // Try alphabetic value, expect exception
-        try {
-            interpreter.buildTree("a+1");
-            fail("Invalid input: exception should be thrown");
-        } catch (Exception e) {
-            assertTrue(e.getMessage().contains("Invalid Input: non-numeric values"));
-        }
+        //Object e = interpreter.buildTree("a+1");
+        //assertEquals("Incorrect format: please enter whitespaces between numbers and operators", e);
+
     }
 }

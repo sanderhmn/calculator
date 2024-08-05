@@ -19,6 +19,7 @@ public class Interpreter {
 
         String expectedRegex;
 
+        // FIXME expectedRegex = expectNumber ? numberRegex : operatorRegex;
         for (String entry : splitPrompt) {
             if (expectNumber) {
                 expectedRegex = numberRegex; // start with number expected
@@ -37,54 +38,15 @@ public class Interpreter {
         return splitPrompt;
     }
     
-    public Node buildTree(String prompt) {
+    public Node buildTree(String prompt) throws Exception {
         // FIXME buildTree re-throws excep -> no try/catch method -> foutafhandeling in calc class
         ArrayList<String> splitPrompt = new ArrayList<>();
         try {
             splitPrompt = this.tokenizePromptToArray(prompt);
         } catch (Exception e) {
             System.out.print(e.getMessage());
-            exit(2);
+            throw e;
         }
-
-        // 2 * 2 - 3 * 3
-        //
-        //    *
-        //   /\
-        //  2  2
-
-        //       -
-        //       /\
-        //      *  3
-        //     /\
-        //    2  2
-
-        //        -
-        //       / \
-        //      *   -
-        //     /\   /\
-        //    2  2 3  -
-        //            /\
-        //           3  1
-
-        // 2 * 2 - 3 - 3 - 1 * 1 - 1
-
-        //        -
-        //       / \
-        //      *   -
-        //     /\   /\
-        //    2  2 3  -
-        //            /\
-        //           3  *
-        //              /\
-        //             1  1
-
-        // if operation priority is less than current
-        //      new parent node
-        // else
-        //       edit child node of current node w/ new operator node
-
-        // 2 * 2 - 3 * 3
 
         // FIXME all the switch expressions can be replaced with a Factory/Builder but idk which one
         Node firstCalcNode = switch (splitPrompt.get(1)) {
@@ -122,14 +84,11 @@ public class Interpreter {
             }
 
             // elif current operation priority > priority of operation of currentRootNode
-            // append new suboperation as rightchild
+            // append new sub-operation as right child
             else {
                 Node tempNode = currentRootNode;
 
-                // Find dangling leaf and save value to add to new node
-                // FIXME while !operatorPrio > tempNode.getRightChild().getPriority()
-
-                // FIXME better? (while operatrorPrio !> tempNOde.getPrio())
+                // Step down until lower priority found
                 while ((operatorPrio < tempNode.getRightChild().getPriority())) { //gives error because tM=cRN=numberNode has no gRC()
                     tempNode = tempNode.getRightChild();
                 }
@@ -144,13 +103,7 @@ public class Interpreter {
                     default -> currentRootNode;
                 };
                 tempNode.setRightChild(tempNewChild);
-
             }
-
-            // FIXME hardcoded for 2 priorities of operation, should look for lower priority operation ()^
-            // FIXME how to solve compiler not accepting numberNode?
-            // maybe by casting cRootNode to operatorNode after first loop
-            // or make seperate primaryNumberNode and operatorNode currentRootNode
         }
         return currentRootNode;
     }

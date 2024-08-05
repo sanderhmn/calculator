@@ -23,6 +23,7 @@ public class Main {
         // Shutdown after 10 mins
         while (System.currentTimeMillis() - startTime < 600000) {
             calculator.performCalculation();
+
         }
 
         scanner.close();

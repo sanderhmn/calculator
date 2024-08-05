@@ -38,9 +38,5 @@ public class InterpreterTest {
         Interpreter interpreter = new Interpreter();
         Exception thrownException = assertThrows(Exception.class, () -> interpreter.buildTree("a+1"));
         assertEquals("Incorrect format: please enter whitespaces between numbers and operators", thrownException.getMessage());
-
-        //Object e = interpreter.buildTree("a+1");
-        //assertEquals("Incorrect format: please enter whitespaces between numbers and operators", e);
-
     }
 }
